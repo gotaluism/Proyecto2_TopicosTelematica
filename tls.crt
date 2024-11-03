@@ -1,0 +1,42 @@
+Name:         modapeluda-cert
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+API Version:  cert-manager.io/v1
+Kind:         Certificate
+Metadata:
+  Creation Timestamp:  2024-11-03T22:06:09Z
+  Generation:          1
+  Owner References:
+    API Version:           networking.k8s.io/v1
+    Block Owner Deletion:  true
+    Controller:            true
+    Kind:                  Ingress
+    Name:                  modapeluda-ingress
+    UID:                   0df94ac9-307f-4805-903f-7306e214025d
+  Resource Version:        19114
+  UID:                     9d677419-6c3a-4855-aad4-1d8bd29bb1b3
+Spec:
+  Dns Names:
+    modapeluda.tech
+  Issuer Ref:
+    Group:      cert-manager.io
+    Kind:       ClusterIssuer
+    Name:       letsencrypt-production
+  Secret Name:  modapeluda-cert
+  Usages:
+    digital signature
+    key encipherment
+Status:
+  Conditions:
+    Last Transition Time:  2024-11-03T22:07:47Z
+    Message:               Certificate is up to date and has not expired
+    Observed Generation:   1
+    Reason:                Ready
+    Status:                True
+    Type:                  Ready
+  Not After:               2025-02-01T21:09:16Z
+  Not Before:              2024-11-03T21:09:17Z
+  Renewal Time:            2025-01-02T21:09:16Z
+  Revision:                1
+Events:                    <none>
