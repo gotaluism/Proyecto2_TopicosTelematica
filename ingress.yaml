@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: modapeluda-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"                    # Clase de Ingress (NGINX en este caso)
+    cert-manager.io/cluster-issuer: "letsencrypt-production" # Usar ClusterIssuer de Let's Encrypt para SSL
+spec:
+  rules:
+  - host: modapeluda.tech
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: tu-servicio     # Cambia "tu-servicio" al nombre real del servicio de WordPress u otro
+            port:
+              number: 80          # Puerto del servicio (no 30080; el Ingress mapea hacia el puerto 80 del servicio)
+  tls:
+  - hosts:
+    - modapeluda.tech
+    secretName: modapeluda-cert  # Nombre del secreto donde se almacenará el certificado SSL
