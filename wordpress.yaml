@@ -21,12 +21,13 @@ metadata:
   labels:
     app: wordpress
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: wordpress
       tier: frontend
   strategy:
-    type: Recreate
+    type: RollingUpdate
   template:
     metadata:
       labels:
