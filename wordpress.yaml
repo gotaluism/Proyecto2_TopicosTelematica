@@ -38,7 +38,7 @@ spec:
         name: wordpress
         env:
         - name: WORDPRESS_DB_HOST
-          value: 10.152.183.81   # IP del servicio MySQL (CLUSTER-IP)
+          value: 10.152.183.234   # IP del servicio MySQL (CLUSTER-IP)
         - name: WORDPRESS_DB_PASSWORD
           value: password        # Contraseña en texto plano (no recomendada para producción)
         ports:
@@ -50,4 +50,4 @@ spec:
       volumes:
       - name: wordpress-persistent-storage
         persistentVolumeClaim:
-          claimName: wp-pv-claim
+          claimName: nfs-pvc
