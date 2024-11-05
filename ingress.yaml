@@ -14,7 +14,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: tu-servicio     # Cambia "tu-servicio" al nombre real del servicio de WordPress u otro
+            name: wordpress
             port:
               number: 80          # Puerto del servicio (no 30080; el Ingress mapea hacia el puerto 80 del servicio)
   tls:
