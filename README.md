@@ -34,6 +34,7 @@ Este proyecto busca desplegar una aplicación en un clúster Kubernetes, usando 
 
 - **Escalado Automático de Nodos**: Solo se logró la configuración para escalado manual.
 - **Alta Disponibilidad en la Base de Datos**: Aunque la base de datos está funcional, la alta disponibilidad en esta capa no fue alcanzada.
+- **Visualización del certificado SSL en el navegador**: El certificado si se encuentra listo y en correctas condiciones pero a la hora de visualizar en el navegador no fue posible que se aplicaran los cambios
 
 ---
 
