@@ -141,6 +141,52 @@ Aquí, `mysql-<pod-id>` se reemplaza con el identificador del pod específico ge
 - Configuración de un `LoadBalancer` para gestionar el tráfico entrante y permitir acceso externo.
 - Montaje del volumen persistente en `/var/www/html` para almacenar los archivos de WordPress de manera duradera.
 
+**`certificate.yaml`**: Este archivo define un recurso Certificate en Kubernetes usando cert-manager. Este certificado se utiliza para asegurar las conexiones HTTPS en el servicio de WordPress mediante la emisión de certificados SSL de Let's Encrypt.
+
+- secretName: Define el nombre del secreto donde se almacenará el certificado SSL.
+- issuerRef: Configura letsencrypt-production como el ClusterIssuer, asegurando que el certificado sea emitido por Let's Encrypt en un entorno de producción.
+- commonName y dnsNames: Especifican el dominio asociado al certificado (ejemplo: modapeluda.tech).
+
+```bash
+microk8s kubectl apply -f certificate.yaml
+```
+
+**`cluster-issuer.yaml`**: Este archivo configura un ClusterIssuer global para cert-manager, permitiendo la emisión automática de certificados SSL desde Let's Encrypt en el clúster. Es necesario para gestionar los certificados SSL sin intervención manual.
+
+- acme: Configura el modo de autenticación ACME de Let's Encrypt.
+- privateKeySecretRef: Define el secreto donde se almacenará la clave privada del certificado.
+- solvers: Configura el solver HTTP01 para validar los certificados a través de NGINX.
+
+```bash
+microk8s kubectl apply -f cluster-issuer.yaml
+```
+
+**`Ingress.yaml`**: Este archivo configura un recurso Ingress para redirigir el tráfico HTTP y HTTPS al servicio de WordPress. Ingress permite que el tráfico externo se enrute hacia los servicios dentro del clúster a través de un controlador como NGINX.
+
+- annotations: Configura el uso de nginx como clase de Ingress y especifica que cert-manager maneje el certificado SSL.
+- rules: Define las reglas para enrutar el tráfico hacia modapeluda.tech, donde el servicio de WordPress escucha en el puerto 80.
+- tls: Aplica el secreto SSL generado para habilitar HTTPS.
+
+```bash
+microk8s kubectl apply -f ingress.yaml
+```
+
+**`metallb-config.yaml`**:Este archivo configura MetalLB para proporcionar una dirección IP pública para los servicios de tipo LoadBalancer, como WordPress. Esta IP fija permite que el servicio de WordPress sea accesible externamente en el clúster.
+
+- address-pools: Define el rango de direcciones IP disponibles para asignar al balanceador de cargas, especificando 50.16.190.153 en este caso.
+```bash
+microk8s kubectl apply -f metallb-config.yaml
+```
+
+**`mysql-secret.yaml`**: Este archivo define un recurso Secret en Kubernetes para almacenar de forma segura las credenciales y configuraciones de la base de datos MySQL. Protege las credenciales al evitar que se expongan directamente en los archivos de despliegue.
+
+- Contiene claves codificadas en Base64, incluyendo la contraseña de root, el usuario y la contraseña para MySQL, y el nombre de la base de datos.
+
+```bash
+microk8s kubectl apply -f mysql-secret.yaml
+```
+
+
 ### 7.2 Despliegue de los Servicios
 
 Después de crear los archivos de configuración, ejecutamos `kubectl apply -f` para aplicar cada archivo al clúster de Kubernetes, desplegando tanto MySQL como WordPress en el entorno de producción. Esta configuración asegura que ambos servicios cuenten con almacenamiento persistente, permitiendo que los datos de la base de datos y los archivos de WordPress se mantengan disponibles aunque los pods se reinicien o eliminen.
