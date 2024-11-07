@@ -1,5 +1,8 @@
 # Proyecto 2 – Cluster Kubernetes
 
+[Sustentación (Video)](https://eafit-my.sharepoint.com/:v:/g/personal/lmgiraldo4_eafit_edu_co/EZRAovwrIuhAuUAPl4JDKRkBaRdktIzHNYlmIMu84OuTJA?e=WLFT2O)
+
+
 ### Materia: ST0263 - Tópicos Especiales en Telemática, 2024-2
 ### Estudiante(s): 
 - Vanessa Velez Restrepo, vavelezr@eafit.edu.co
