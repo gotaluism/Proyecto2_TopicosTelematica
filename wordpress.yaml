@@ -12,6 +12,7 @@ spec:
   selector:
     app: wordpress
     tier: frontend
+    role: wordpress
   type: LoadBalancer
 ---
 apiVersion: apps/v1
@@ -21,18 +22,18 @@ metadata:
   labels:
     app: wordpress
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: wordpress
       tier: frontend
   strategy:
-    type: RollingUpdate
+    type: Recreate
   template:
     metadata:
       labels:
         app: wordpress
         tier: frontend
+        role: wordpress
     spec:
       containers:
       - image: wordpress:4.8-apache
@@ -41,14 +42,4 @@ spec:
         - name: WORDPRESS_DB_HOST
           value: 10.152.183.234   # IP del servicio MySQL (CLUSTER-IP)
         - name: WORDPRESS_DB_PASSWORD
-          value: password        # Contraseña en texto plano (no recomendada para producción)
-        ports:
-        - containerPort: 80
-          name: wordpress
-        volumeMounts:
-        - name: wordpress-persistent-storage
-          mountPath: /var/www/html
-      volumes:
-      - name: wordpress-persistent-storage
-        persistentVolumeClaim:
-          claimName: nfs-pvc
+          value: password
