@@ -186,6 +186,20 @@ microk8s kubectl apply -f metallb-config.yaml
 microk8s kubectl apply -f mysql-secret.yaml
 ```
 
+**`pv_nfs.yaml`**: Este archivo configura un PersistentVolume (PV) que usa un servidor NFS para proporcionar almacenamiento compartido entre los nodos del clúster. Este volumen se configura para que múltiples pods puedan acceder a él, lo que es útil para datos compartidos.
+
+- capacity: Define la capacidad de almacenamiento del volumen (por ejemplo, 5Gi).
+- nfs: Configura la ruta NFS y la IP del servidor NFS (50.19.228.205).
+```bash
+microk8s kubectl apply -f pv_nfs.yaml
+```
+
+**`pvc_nfs.yaml`**: Este archivo configura un PersistentVolumeClaim (PVC) para acceder al PersistentVolume NFS definido en pv_nfs.yaml. El PVC permite que los pods soliciten el almacenamiento compartido que necesita para los datos de WordPress.
+
+- AccessModes: Configura el acceso para lectura y escritura simultánea desde varios pods (ReadWriteMany).
+```bash
+microk8s kubectl apply -f pvc_nfs.yaml
+```
 
 ### 7.2 Despliegue de los Servicios
 
