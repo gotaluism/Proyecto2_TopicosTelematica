@@ -225,3 +225,12 @@ A continuación, se presentan capturas que documentan el desarrollo y configurac
 
 
 
+## Referencias
+
+- [Issue en MicroK8s sobre configuraciones y problemas comunes](https://github.com/canonical/microk8s/issues/4361)
+- [Guía para despliegue de WordPress usando MicroK8s](https://medium.com/@somashekarvedadevops/wordpress-deployment-using-microk8s-7218e2801899)
+- [Cómo configurar un montaje NFS en Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-20-04-es)
+- [Documentación de Cert Manager en MicroK8s](https://microk8s.io/docs/addon-cert-manager)
+- [Ejemplo de configuración de WordPress con NFS en Kubernetes](https://github.com/nyukeit/Wordpress-K8S-NFS/blob/main/manifests/wordpress.yaml)
+- [Ejecutar aplicaciones replicadas en Kubernetes](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/)
+- [Configuración de NFS en MicroK8s](https://microk8s.io/docs/how-to-nfs)
